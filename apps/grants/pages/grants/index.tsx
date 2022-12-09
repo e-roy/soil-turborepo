@@ -167,7 +167,7 @@ const GrantsPage: NextPageWithLayout = () => {
             <GridItemThree>
               <Card className={`lg:h-85 flex flex-col gap-2`}>
                 <UserProfileCard />
-                {currentUser &&
+                {(currentUser &&
                   getFillProfilePercentage({
                     ...state,
                     nodes:
@@ -176,27 +176,27 @@ const GrantsPage: NextPageWithLayout = () => {
                       currentUser.nodes?.length > (nodesID || []).length
                         ? currentUser.nodes
                         : nodesID,
-                  }) < 50 &&
-                  !state.background?.some((bg: any) => !!bg.title) && (
-                    <WarningCard
-                      profilePercentage={getFillProfilePercentage({
-                        ...state,
-                        nodes:
-                          currentUser &&
-                          currentUser.nodes &&
-                          currentUser.nodes?.length > (nodesID || []).length
-                            ? currentUser.nodes
-                            : nodesID,
-                      })}
-                      onClickCompleteProfile={() => setView("profile")}
-                    />
-                  )}
+                  }) < 50) ||
+                !state.background?.some((bg: any) => !!bg.title) ? (
+                  <WarningCard
+                    profilePercentage={getFillProfilePercentage({
+                      ...state,
+                      nodes:
+                        currentUser &&
+                        currentUser.nodes &&
+                        currentUser.nodes?.length > (nodesID || []).length
+                          ? currentUser.nodes
+                          : nodesID,
+                    })}
+                    onClickCompleteProfile={() => setView("profile")}
+                  />
+                ) : null}
               </Card>
             </GridItemThree>
             <GridItemNine>
               <Card
                 shadow
-                className="scrollbar-hide h-85 overflow-scroll bg-white p-4"
+                className="scrollbar-hide lg:h-85 overflow-scroll bg-white p-4"
               >
                 <CardGrid>
                   {dataGrants &&
